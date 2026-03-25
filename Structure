@@ -1,0 +1,14 @@
+── docs/
+│   ├── 01-project-brief.md
+│   ├── 02-access-model.md
+│   ├── 03-identity-lifecycle.md
+│   ├── 04-authentication.md
+│   ├── 05-conditional-access.md
+│   ├── 06-device-compliance-intune.md
+│   ├── 07-privileged-access-pim.md
+│   ├── 08-sso-applications.md
+│   ├── 09-external-identity-b2b.md
+│   ├── 10-governance.md
+│   ├── 11-monitoring-incident-response.md
+│   ├── 12-automation.md
+│   └── 13-final-architecture.md
