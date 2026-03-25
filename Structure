@@ -1,14 +1,15 @@
-── docs/
+docs/
 │   ├── 01-project-brief.md
-│   ├── 02-access-model.md
-│   ├── 03-identity-lifecycle.md
-│   ├── 04-authentication.md
-│   ├── 05-conditional-access.md
-│   ├── 06-device-compliance-intune.md
-│   ├── 07-privileged-access-pim.md
-│   ├── 08-sso-applications.md
-│   ├── 09-external-identity-b2b.md
-│   ├── 10-governance.md
-│   ├── 11-monitoring-incident-response.md
-│   ├── 12-automation.md
-│   └── 13-final-architecture.md
+│   ├── 02-tenant-foundation.md
+│   ├── 03-access-model.md
+│   ├── 04-identity-lifecycle.md
+│   ├── 05-authentication.md
+│   ├── 06-conditional-access.md
+│   ├── 07-device-compliance-intune.md
+│   ├── 08-privileged-access-pim.md
+│   ├── 09-sso-applications.md
+│   ├── 10-external-identity-b2b.md
+│   ├── 11-governance.md
+│   ├── 12-monitoring-incident-response.md
+│   ├── 13-automation.md
+│   └── 14-final-architecture.md
