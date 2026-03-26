@@ -245,7 +245,7 @@ These accounts will:
 
 Security Defaults were intentionally left **disabled** in this phase.
 
-![SecurityDefault](../screenshots/phase01/SecurityDefaults.PNG)
+![SecurityDefault](../screenshots/phase01/SecurityDefaults1.PNG)
 
 ### Reasoning
 
