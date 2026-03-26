@@ -1,8 +1,15 @@
 # Project Brief – Cloud-Native IAM Lab
 
-## Project Name
+## Objective
 
-Cloud-Native Enterprise IAM Lab
+Design and implement a **cloud-native Identity and Access Management (IAM) environment** for a healthcare organization using modern security and Zero Trust principles.
+
+The environment must be:
+
+* secure
+* scalable
+* cost-efficient
+* aligned with real-world IAM practices
 
 ---
 
@@ -12,9 +19,9 @@ Cloud-Native Enterprise IAM Lab
 **Industry:** Healthcare Technology
 **Headquarters:** London, United Kingdom
 **Other Locations:** Manchester and Remote Workforce
-**Total Employees:** ~300
+**Total Employees (Simulated):** ~300
 
-Northstar Health develops digital healthcare platforms used by clinics and hospitals across the UK. The company handles sensitive patient-adjacent data, requiring strong identity and access controls.
+Northstar Health develops digital healthcare platforms used by clinics and hospitals. The company handles sensitive data, requiring strong identity and access controls.
 
 ---
 
@@ -22,13 +29,15 @@ Northstar Health develops digital healthcare platforms used by clinics and hospi
 
 ### Departments
 
-* HR (15 users)
-* Finance (20 users)
-* IT (10 users)
-* Security (5 users)
-* Sales (80 users)
-* Customer Support (70 users)
-* Operations (100 users)
+* HR
+* Finance
+* IT
+* Security
+* Sales
+* Customer Support
+* Operations
+
+Each department has different access requirements and risk levels.
 
 ---
 
@@ -36,46 +45,63 @@ Northstar Health develops digital healthcare platforms used by clinics and hospi
 
 ### Workforce Identities
 
-Standard employee accounts assigned by department.
+Standard employee accounts assigned based on department.
 
 ### Privileged Identities
 
-Separate admin accounts used only for administrative tasks.
+Separate administrative accounts used only for elevated tasks.
 
 ### Contractors
 
-Temporary identities with restricted and time-bound access.
+Temporary identities with limited and time-bound access.
 
 ### Guest Users (B2B)
 
-External partner users with limited collaboration access.
+External partner users with restricted collaboration access.
 
 ### Application Identities
 
-Service principals and managed identities for automation.
+Service principals and managed identities used for automation and application access.
 
 ---
 
-## Admin Role Model
+## Admin Model
 
-| Role           | Purpose                            |
-| -------------- | ---------------------------------- |
-| IAM Admin      | User, group, lifecycle, governance |
-| Security Admin | Conditional Access, monitoring     |
-| Intune Admin   | Device compliance and policies     |
-| Global Reader  | Audit and visibility only          |
+Administrative access is separated from standard user accounts.
 
-### Admin Rules
+### Admin Roles
 
-* No standing Global Admin usage
-* Admin accounts separate from user accounts
-* Privileged access must be just-in-time (PIM)
+* IAM Admin (user and group management)
+* Security Admin (Conditional Access and monitoring)
+* Intune Admin (device compliance and management)
+* Global Reader (audit and visibility)
 
-### Emergency Access
+### Design Principles
 
-* Two break-glass accounts
-* Excluded from Conditional Access
-* Strong password and monitored usage
+* No shared admin accounts
+* No permanent high privilege where avoidable
+* Admin roles separated from daily-use accounts
+* Privileged access to be time-bound (implemented later with PIM)
+
+---
+
+## Emergency Access (Break-Glass)
+
+Two emergency accounts are created:
+
+* emergency1@
+* emergency2@
+
+### Design Approach
+
+* Used only for emergency recovery
+* Excluded from Conditional Access policies
+* Not used for daily administration
+* Monitored through logs and alerts
+* Designed to avoid tenant lockout
+* Designed to avoid single points of failure
+
+This reflects modern IAM thinking where security must be balanced with recoverability.
 
 ---
 
@@ -89,15 +115,15 @@ Service principals and managed identities for automation.
 
 ### Business Applications
 
-* HR Management System
-* Finance Approval System
-* CRM Platform
-* Ticketing System
+* HR system
+* Finance system
+* CRM platform
+* Ticketing system
 
-### Identity-Integrated Apps
+### Identity-Integrated Applications
 
-* One SaaS app using SAML
-* One internal web app using OpenID Connect
+* One SaaS application using SAML
+* One internal application using OpenID Connect
 
 ---
 
@@ -108,14 +134,14 @@ Service principals and managed identities for automation.
 * Corporate Windows laptops
 * Mobile devices (iOS and Android)
 * Contractor unmanaged devices
-* Admin secure workstations
+* Secure admin workstations
 
-### Trust Requirements
+### Access Principles
 
-* Admin access requires compliant device
-* Finance access requires compliant device
-* Mobile access allowed with restrictions
-* Contractors limited access
+* Sensitive access requires compliant devices
+* Admin actions require trusted devices
+* Mobile access is restricted or controlled
+* Contractors have limited access paths
 
 ---
 
@@ -126,19 +152,19 @@ Service principals and managed identities for automation.
 * MFA required for all users
 * Stronger authentication for admins
 * Legacy authentication blocked
-* Passwordless encouraged
+* Passwordless supported where possible
 
 ### Authorization
 
-* Access assigned via groups only
+* Group-based access model
 * Least privilege enforced
-* Admin roles separated from user roles
-* Privileged access time-bound
+* No direct user-to-app assignments
+* Admin access separated and controlled
 
 ### Device-Based Access
 
-* Sensitive apps require compliant devices
-* Admin actions blocked from unmanaged devices
+* Compliance required for sensitive resources
+* Admin access restricted to trusted devices
 
 ### Governance
 
@@ -148,44 +174,53 @@ Service principals and managed identities for automation.
 
 ### Monitoring
 
-* Sign-in logs monitored
-* Admin activity audited
-* Conditional Access validated
+* Sign-in activity monitored
+* Administrative actions audited
+* Access patterns reviewed
 
 ---
 
 ## Risk Scenarios
 
+The IAM system must mitigate:
+
 * Phishing leading to account compromise
-* Over-privileged admin accounts
-* Users retaining access after role change
-* Leavers not deprovisioned quickly
-* Unmanaged device access
-* Guest overexposure
-* Contractor access not removed
+* Over-privileged administrative access
+* Users retaining access after role changes
+* Delayed or incomplete offboarding
+* Access from unmanaged or insecure devices
+* Excessive access for guest users
+* Long-lived contractor access
 
 ---
 
 ## IAM Objectives
 
-* Cloud-only identity architecture
-* Centralized identity via Microsoft Entra ID
-* Strong authentication and Zero Trust
-* Device-aware access using Intune
-* Privileged access control using PIM
-* Controlled external collaboration
-* Lifecycle automation
-* Full auditability
+* Implement a cloud-only identity architecture
+* Enforce Zero Trust access principles
+* Apply least privilege across all access
+* Secure privileged access
+* Enable secure external collaboration
+* Automate identity lifecycle processes
+* Provide full auditability and monitoring
 
 ---
 
 ## Success Criteria
 
-* MFA enforced for all users
-* No permanent privileged access
-* Group-based access model
-* Device compliance enforced
-* Guest and contractor governance in place
-* Identity lifecycle automated
-* Logs provide full visibility
+The project is successful when:
+
+* All users are protected by strong authentication
+* No permanent privileged access exists
+* Access is group-based and structured
+* Sensitive access requires compliant devices
+* External and contractor access is governed
+* Identity lifecycle processes are controlled
+* Logs provide clear visibility into access and activity
+
+---
+
+## Scope Notes
+
+This environment is designed to simulate a **300-user enterprise**, but is implemented using a **small representative identity set** to validate IAM controls in a cost-efficient manner.
 
