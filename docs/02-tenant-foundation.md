@@ -84,7 +84,7 @@ The tenant foundation was built using the following IAM principles:
 * emma.support@
 * oliver.operations@
 
-![Alice](screenshots/phase01/AliceHR.png)
+![Alice](../screenshots/phase01/AliceHR.PNG)
 
 ![Userlist](screenshots/phase01/UserList.png)
 
