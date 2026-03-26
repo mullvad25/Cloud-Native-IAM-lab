@@ -1,86 +1,81 @@
-# Tenant Foundation (Phase 1)
+# Phase 2 – Tenant Foundation
 
 ## Objective
 
-Establish a clean, scalable, and secure cloud-only identity foundation using Microsoft Entra ID.
+Establish a secure and structured Microsoft Entra ID tenant for the Northstar Health IAM lab, forming the foundation for identity, access control, and security design across all subsequent phases.
 
 This phase focuses on:
 
-* Structuring identities correctly
-* Separating administrative access
-* Implementing a group-based model
-* Preparing the environment for secure access control
+* Identity separation (workforce vs admin vs emergency)
+* Group-based organizational structure
+* Least-privilege role assignment
+* Emergency access (break-glass) design
+* Initial tenant hardening decisions
 
 ---
 
-## Concept
+## Environment Context
 
-The tenant foundation defines how identities are structured and managed.
+* Organization: Northstar Health
+* Industry: Healthcare Technology
+* Locations: London (HQ), Manchester, Remote UK workforce
+* IAM Platform: Microsoft Entra ID
+* Architecture: Cloud-native only
+* Security Model: Zero Trust aligned
+* Cost Model: Free-first / minimal cost
 
-Key IAM principles applied in this phase:
+---
 
-* Separation of duties (admin vs user accounts)
+## Tenant Naming Note
+
+The Microsoft Entra tenant was created using the domain:
+
+`iam.onmicrosoft.com`
+
+For the purpose of this lab, the tenant represents the organization **Northstar Health**.
+
+In real-world environments, tenant domains do not always align with company branding due to legacy decisions, early provisioning constraints, or mergers. This lab intentionally retains the existing tenant name to reflect realistic IAM conditions.
+
+---
+
+## Design Principles
+
+The tenant foundation was built using the following IAM principles:
+
 * Least privilege access
+* Separation of duties
+* Identity isolation (user vs admin vs emergency)
 * Group-based access control
-* Identity standardization through naming conventions
-
-A strong foundation ensures that all future IAM controls (Conditional Access, PIM, governance) can be implemented consistently and securely.
-
----
-
-## Design
-
-### Naming Conventions
-
-#### Users
-
-Format:
-firstname.department@
-
-Examples:
-
-* alice.hr@
-* bob.finance@
-* charlie.it@
+* No single points of failure
+* Design for recoverability
 
 ---
 
-#### Admin Accounts
+## Naming Conventions
 
-Format:
-role-admin@
+### Users
 
-Examples:
-
-* iam-admin@
-* sec-admin@
-* intune-admin@
-* reader-admin@
-
----
-
-#### Groups
-
-Format:
-SG-[Department]
-
-Examples:
-
-* SG-HR
-* SG-Finance
-* SG-IT
-* SG-Sales
-* SG-Support
-* SG-Operations
-* SG-All-Employees
+| Type      | Format                      | Example     |
+| --------- | --------------------------- | ----------- |
+| Workforce | firstname.department@domain | alice.hr@   |
+| Admin     | role-admin@domain           | iam-admin@  |
+| Emergency | emergencyX@domain           | emergency1@ |
+| Test      | test-risk@domain            | test-risk@  |
 
 ---
 
-### Identity Structure
+### Groups
 
-The environment uses a minimal identity set to simulate a larger enterprise.
+| Type           | Format           | Example          |
+| -------------- | ---------------- | ---------------- |
+| Security Group | SG-<Name>        | SG-HR            |
+| Global Group   | SG-All-Employees | SG-All-Employees |
 
-#### Workforce Users
+---
+
+## User Inventory
+
+### Workforce Users
 
 * alice.hr@
 * bob.finance@
@@ -89,27 +84,54 @@ The environment uses a minimal identity set to simulate a larger enterprise.
 * emma.support@
 * oliver.operations@
 
-#### Admin Users (separate identities)
+These users represent typical employees and are used for normal access scenarios.
+
+---
+
+### Privileged Admin Users
 
 * iam-admin@
 * sec-admin@
 * intune-admin@
 * reader-admin@
 
-#### Emergency Accounts (Break-Glass)
+These accounts are:
+
+* Separate from workforce identities
+* Not used for daily productivity
+* Used only for administrative actions
+
+---
+
+### Emergency Access Accounts
 
 * emergency1@
 * emergency2@
 
-#### Optional Test User
+These accounts are:
 
-* test-risk@
+* Cloud-only
+* Not tied to individuals
+* Reserved strictly for tenant recovery scenarios
+* Not used in normal operations
 
 ---
 
-### Group Model
+### Test User
 
-#### Department Groups
+* test-risk@
+
+This account is used for:
+
+* Policy testing
+* Risk simulations
+* Safe validation of future configurations
+
+---
+
+## Group Inventory
+
+The following security groups were created:
 
 * SG-HR
 * SG-Finance
@@ -117,19 +139,56 @@ The environment uses a minimal identity set to simulate a larger enterprise.
 * SG-Sales
 * SG-Support
 * SG-Operations
-
-#### Global Group
-
 * SG-All-Employees
 
-#### Optional Admin Groups
+All groups were created as **Security groups with assigned membership**.
 
-* SG-Admins
-* SG-Privileged-Eligible
+Role assignment capability for groups was intentionally disabled to maintain clarity in privilege assignment during early phases.
 
 ---
 
-### Role Assignments
+## Group Ownership
+
+All groups are owned by:
+
+* iam-admin@
+
+This ensures:
+
+* Centralized identity governance
+* Clear accountability
+* Consistent access management
+
+---
+
+## Group Membership
+
+### Department Mapping
+
+| User               | Group         |
+| ------------------ | ------------- |
+| alice.hr@          | SG-HR         |
+| bob.finance@       | SG-Finance    |
+| charlie.it@        | SG-IT         |
+| diana.sales@       | SG-Sales      |
+| emma.support@      | SG-Support    |
+| oliver.operations@ | SG-Operations |
+
+---
+
+### Global Group
+
+All workforce users are members of:
+
+* SG-All-Employees
+
+Admin and emergency accounts are intentionally excluded.
+
+---
+
+## Role Assignments
+
+The following least-privilege roles were assigned:
 
 | Account       | Role                   |
 | ------------- | ---------------------- |
@@ -138,135 +197,102 @@ The environment uses a minimal identity set to simulate a larger enterprise.
 | intune-admin@ | Intune Administrator   |
 | reader-admin@ | Global Reader          |
 
----
+### Design Decision
 
-### Break-Glass Design
+Global Administrator was not broadly assigned.
 
-Emergency accounts are designed to:
-
-* Provide access during lockout scenarios
-* Be excluded from Conditional Access
-* Avoid dependency on a single authentication method
-* Be monitored for any usage
-
-They are not used for daily administration.
+Administrative responsibilities are distributed across scoped roles to reduce risk and enforce least privilege.
 
 ---
 
-## Implementation
+## Emergency Access Design
 
-### Step 1: Create Tenant
+Two emergency access accounts were implemented to prevent tenant lockout and ensure recoverability.
 
-* Created a new Microsoft Entra tenant
-* Region: United Kingdom
+### Design Principles
 
----
+* Two accounts to eliminate single point of failure
+* High privilege for recovery scenarios
+* No daily usage
+* No group membership
+* Not tied to specific individuals
+* Credentials stored securely
 
-### Step 2: Create Users
+### Future Considerations
 
-* Created 6 workforce users
-* Created 4 admin users
-* Created 2 emergency accounts
-* Created optional test account
+These accounts will:
 
----
-
-### Step 3: Create Groups
-
-* Created department-based security groups
-* Created SG-All-Employees
-* Assigned users to their respective groups
-* Added all users to SG-All-Employees
+* Be excluded from Conditional Access policies
+* Be monitored through sign-in logs
+* Be adapted to support modern authentication requirements where necessary
 
 ---
 
-### Step 4: Assign Roles
+## Tenant Hardening Decision
 
-* Assigned least-privilege roles to admin accounts
-* Avoided unnecessary Global Admin usage
+### Security Defaults
 
----
+Security Defaults were intentionally left **disabled** in this phase.
 
-### Step 5: Basic Hardening
+### Reasoning
 
-* Reviewed default user permissions
-* Reviewed external collaboration settings
-* Ensured tenant is not over-permissive
+This lab follows a phased IAM implementation approach. Authentication controls and Conditional Access policies will be introduced in later phases.
 
----
+Enabling Security Defaults at this stage would:
 
-## Validation
+* Limit flexibility for Conditional Access design
+* Prevent proper modeling of emergency access exclusions
+* Introduce rigid controls before authentication architecture is defined
 
-The following checks were performed:
-
-* Users exist with correct naming convention
-* Users are assigned to correct groups
-* Admin roles are assigned to correct accounts
-* No admin role is assigned to standard users
-* Groups reflect department structure
-* All users are included in SG-All-Employees
+This is a **temporary lab decision**, not a recommended enterprise end-state.
 
 ---
 
-## Failure Scenario
+## Validation Performed
 
-### Scenario 1: No Group-Based Access
+The following checks were completed:
 
-If access is assigned directly to users:
-
-* Access becomes difficult to manage at scale
-* Errors increase during role changes
-* Inconsistent permissions across users
-
----
-
-### Scenario 2: Admin Accounts Not Separated
-
-If admins use normal user accounts:
-
-* Increased risk of privilege misuse
-* Higher impact if account is compromised
-* No clear audit separation
+* All required users were created
+* All groups were created successfully
+* Workforce users assigned to correct groups
+* SG-All-Employees contains only workforce users
+* Admin and emergency accounts excluded from employee groups
+* Role assignments verified
+* Emergency accounts confirmed and isolated
+* Security Defaults status verified
 
 ---
 
-### Scenario 3: Excessive Privileges
+## Failure Scenarios Considered
 
-If too many Global Admins exist:
-
-* Large blast radius if one account is compromised
-* Difficult to track accountability
-
----
-
-### Scenario 4: Poor Naming Conventions
-
-If naming is inconsistent:
-
-* Hard to manage identities
-* Difficult to troubleshoot access issues
-* Poor scalability
+* Admin accounts mixed with workforce identities → increased compromise risk
+* Overuse of Global Administrator → excessive privilege exposure
+* Single emergency account → recovery failure risk
+* Emergency accounts used daily → loss of recovery integrity
+* Admin accounts added to SG-All-Employees → unintended privilege spread
 
 ---
 
-## Lessons Learned
+## Key Lessons Learned
 
-* Group-based access is essential for scalability
-* Admin accounts must always be separate from user accounts
-* Least privilege reduces risk significantly
-* Naming conventions are critical for long-term management
-* A strong identity foundation simplifies all future IAM controls
+* The Entra tenant is the core identity security boundary
+* Identity separation is critical for reducing blast radius
+* Least privilege must be implemented from the start
+* Emergency access must be designed deliberately
+* Group-based access simplifies scaling and governance
+* IAM design requires balancing security, usability, and recoverability
 
 ---
 
-## Screenshots
+## Phase Outcome
 
-(Add the following screenshots)
+At the end of this phase, the tenant has:
 
-* Users list
-* Groups and memberships
-* Role assignments
-* Admin accounts
+* A structured identity model
+* Clear separation of identity types
+* Group-based organization
+* Least-privilege administrative model
+* Emergency recovery capability
 
-Path:
-../screenshots/tenant-foundation/
+This foundation enables secure progression into authentication, Conditional Access, and governance in later phases.
+
