@@ -2,65 +2,125 @@
 
 ## Overview
 
-This project simulates a cloud-native Identity and Access Management (IAM) environment for a healthcare company (Northstar Health) using Microsoft Entra ID.
+This project simulates a **cloud-native Identity and Access Management (IAM) environment** for a healthcare technology company, **Northstar Health**.
 
-The goal is to design, implement, and secure an enterprise IAM system using Zero Trust principles.
+The goal is to design, implement, and secure an enterprise IAM system using **modern, cloud-first and Zero Trust principles**, while keeping the environment **cost-efficient and scalable**.
+
+This lab is designed to simulate a **300-user organization**, implemented using a **small representative identity set** to validate IAM controls.
 
 ---
 
 ## Objectives
 
-* Implement strong authentication (MFA and passwordless)
-* Enforce Conditional Access policies
-* Manage device compliance with Intune
-* Control privileged access using PIM
+* Design a cloud-only IAM architecture using Microsoft Entra ID
+* Implement strong authentication (MFA and modern methods)
+* Enforce Conditional Access using Zero Trust principles
+* Manage device-based access using Intune
+* Control privileged access using Just-In-Time (PIM)
 * Integrate applications using SAML and OpenID Connect
-* Implement identity lifecycle automation
-* Apply access governance and access reviews
+* Implement identity lifecycle (joiner, mover, leaver)
+* Apply governance (access packages and access reviews)
 * Monitor and respond to identity-based threats
+* Automate IAM using scripting and Infrastructure as Code (Terraform)
+
+---
+
+## Key Design Principles
+
+* Cloud-first identity (no on-prem dependency)
+* Least privilege access model
+* Group-based access control (no direct assignments)
+* Separation of user and admin identities
+* Just-in-time privileged access
+* Device-aware access control
+* Continuous monitoring and auditability
 
 ---
 
 ## Architecture
 
-(Add diagram later in /diagrams folder)
-
----
-
-## Key Features
-
-* Cloud-only identity architecture
-* Role-based and least privilege access
-* Device-based access control
-* Just-in-time privileged access
-* External identity (B2B collaboration)
-* Identity governance (access packages and reviews)
-* Logging and incident simulation
+(To be added in /diagrams/architecture.png)
 
 ---
 
 ## Technologies Used
 
 * Microsoft Entra ID
-* Microsoft Intune
-* Azure RBAC
 * Conditional Access
+* Microsoft Intune
 * Privileged Identity Management (PIM)
+* Azure RBAC
 * PowerShell and Microsoft Graph
+* Terraform (introduced in later phase)
 
 ---
 
 ## Project Structure
 
-See the /docs folder for detailed implementation of each IAM domain.
+```text
+docs/        → IAM design and implementation by phase  
+scripts/     → automation scripts  
+diagrams/    → architecture and flow diagrams  
+screenshots/ → evidence of configurations  
+notes/       → learning, troubleshooting, and progress tracking  
+```
 
 ---
 
-## Learning Outcomes
+## Learning Approach
 
-This project demonstrates:
+This project is built in **learning mode**, meaning each phase includes:
 
-* IAM architecture design
-* Security-first access control
-* Real-world IAM operational workflows
-* Threat detection and response
+* Concept: why the control exists
+* Implementation: how it is configured
+* Validation: how it is tested
+* Failure Scenario: what happens if misconfigured
+* Lessons Learned: key takeaways
+
+This ensures deep understanding of IAM, not just configuration.
+
+---
+
+## Simulated Environment
+
+**Company:** Northstar Health
+**Industry:** Healthcare Technology
+**Locations:** London, Manchester, Remote UK Workforce
+**Scale (Simulated):** ~300 users
+**Actual Lab Size:** ~10–15 identities
+
+---
+
+## IAM Capabilities Covered
+
+* Identity architecture and design
+* Authentication and MFA strategy
+* Conditional Access policy design
+* Device compliance and access control
+* Privileged access management
+* Application integration (SSO)
+* Identity lifecycle management
+* External identity (B2B)
+* Governance and access reviews
+* Monitoring and incident response
+* IAM automation and Infrastructure as Code
+
+---
+
+## Outcome
+
+This project demonstrates the ability to:
+
+* Design secure IAM architectures
+* Implement Zero Trust access controls
+* Apply least privilege principles
+* Identify and mitigate identity risks
+* Understand IAM failure scenarios
+* Translate IAM design into automation
+
+---
+
+## Notes
+
+This environment is intentionally built using a **minimal identity set** to reduce cost while preserving **enterprise-level design and security principles**.
+
