@@ -84,6 +84,10 @@ The tenant foundation was built using the following IAM principles:
 * emma.support@
 * oliver.operations@
 
+![Alice](screenshots/phase01/AliceHR.png)
+
+![Userlist](screenshots/phase01/UserList.png)
+
 These users represent typical employees and are used for normal access scenarios.
 
 ---
@@ -174,6 +178,8 @@ This ensures:
 | emma.support@      | SG-Support    |
 | oliver.operations@ | SG-Operations |
 
+![GroupList](screenshots/phase01/GroupsList.png)
+
 ---
 
 ### Global Group
@@ -183,6 +189,7 @@ All workforce users are members of:
 * SG-All-Employees
 
 Admin and emergency accounts are intentionally excluded.
+![SG-All-Employees](screenshots/phase01/SGAllEmployees.png)
 
 ---
 
@@ -197,11 +204,15 @@ The following least-privilege roles were assigned:
 | intune-admin@ | Intune Administrator   |
 | reader-admin@ | Global Reader          |
 
+![Roles](screenshots/phase01/Roles.png)
+
 ### Design Decision
 
 Global Administrator was not broadly assigned.
 
 Administrative responsibilities are distributed across scoped roles to reduce risk and enforce least privilege.
+
+![Admins](screenshots/phase01/GlobalAdminAssignment.png)
 
 ---
 
@@ -233,6 +244,8 @@ These accounts will:
 ### Security Defaults
 
 Security Defaults were intentionally left **disabled** in this phase.
+
+![SecurityDefault](screenshots/phase01/SecurityDefaults.png)
 
 ### Reasoning
 
