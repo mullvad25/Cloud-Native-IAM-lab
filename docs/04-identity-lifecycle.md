@@ -344,7 +344,7 @@ Recommended screenshots for this phase:
 
 ## Summary
 
-Phase 3 implemented a complete identity lifecycle model using group-based access control.
+Phase 4 implemented a complete identity lifecycle model using group-based access control.
 
 This phase demonstrates how IAM systems maintain security over time by ensuring that access follows identity automatically, rather than relying on manual intervention.
 
