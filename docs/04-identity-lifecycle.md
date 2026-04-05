@@ -76,7 +76,7 @@ The user was assigned to:
 * SG-HR
 * SG-All-Employees
 
-![John HR Created](../screenshots/phase.png)
+![John HR Created](../screenshots/phase02/Johnhrjoiner.PNG)
 
 ---
 
@@ -128,6 +128,8 @@ Changes applied:
 * Removed from SG-HR
 * Added to SG-Finance
 
+![Alice HR Created](../screenshots/phase02/AliceHR.PNG)
+
 ---
 
 ### Access Flow
@@ -143,6 +145,7 @@ After:
 ```text
 alice.hr@ → SG-Finance → AG-Finance-Apps
 ```
+![Access Nesting](../screenshots/phase02/Accessnesting.PNG)
 
 ---
 
@@ -184,6 +187,8 @@ Actions performed:
 * Sign-in blocked
 * Removed from all group memberships (optional but recommended)
 * Account retained for audit purposes
+
+![Bob Revoked](../screenshots/phase02/BobRevoked.PNG)
 
 ---
 
