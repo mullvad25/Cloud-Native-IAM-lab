@@ -76,6 +76,8 @@ The user was assigned to:
 * SG-HR
 * SG-All-Employees
 
+![John HR Created](../screenshots/phase.png)
+
 ---
 
 ### Access Flow
