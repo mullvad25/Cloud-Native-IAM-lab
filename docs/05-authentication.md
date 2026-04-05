@@ -132,19 +132,19 @@ This ensures that identity verification requires more than just credentials.
 
 ### Security Defaults Enabled
 
-![Security Defaults Enabled](../screenshots/phase04/securitydefaults.PNG)
+![Security Defaults Enabled](../screenshots/phase05/securitydefaults.PNG)
 
 ---
 
 ### MFA Registration (Workforce User)
 
-![MFA Setup](../screenshots/phase04/mfasetup.PNG)
+![MFA Setup](../screenshots/phase05/mfasetup.PNG)
 
 ---
 
 ### MFA Enforcement (Successful Login)
 
-![MFA Success](../screenshots/phase04/mfasuccess.PNG)
+![MFA Success](../screenshots/phase05/mfasuccess.PNG)
 
 ---
 
